@@ -1,29 +1,32 @@
-package com.example.chatwiseproject.adapter
+package com.example.androidinternshipproject.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.chatwiseproject.R
-import com.example.chatwiseproject.model.ImageModel
+import com.example.androidinternshipproject.R
+import com.example.androidinternshipproject.model.Photo
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class SearchImageAdapter : RecyclerView.Adapter<SearchImageAdapter.ImageViewHolder>() {
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
-    private val differCallback = object : DiffUtil.ItemCallback<ImageModel>() {
-        override fun areItemsTheSame(oldItem: ImageModel, newltem: ImageModel): Boolean {
-            return oldItem.url == newltem.url
-        }
+    companion object {
+        private val differCallback = object : DiffUtil.ItemCallback<Photo>() {
+            override fun areItemsTheSame(oldItem: Photo, newltem: Photo): Boolean {
+                return oldItem.url_s == newltem.url_s
+            }
 
-        override fun areContentsTheSame(oldItem: ImageModel, newltem: ImageModel): Boolean {
-            return oldItem == newltem
+            override fun areContentsTheSame(oldItem: Photo, newltem: Photo): Boolean {
+                return oldItem == newltem
+            }
         }
     }
 
@@ -43,22 +46,24 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val image = differ.currentList[position]
         holder.itemView.apply {
-            Glide.with(this).load(image.url).into(ivImage)
-            tvTitle.text = image.title
+            Glide.with(this).load(image?.url_s)
+                .placeholder(R.drawable.ic_baseline_cloud_off_24)
+                .into(ivImage)
+            tvTitle.text = image?.title
             setOnClickListener {
-                onItemClickListener?.let { it (image) }
+                onItemClickListener?.let { it (image!!) }
             }
         }
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
+    private var onItemClickListener : ((Photo) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : (Photo)-> Unit){
+        onItemClickListener = listener
     }
 
-    private var onItemClickListener : ((ImageModel) -> Unit)? = null
-
-    fun setOnItemClickListener(listener : (ImageModel)-> Unit){
-        onItemClickListener = listener
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
 
 }

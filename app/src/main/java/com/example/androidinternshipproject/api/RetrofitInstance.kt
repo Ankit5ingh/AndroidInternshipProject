@@ -1,6 +1,6 @@
-package com.example.chatwiseproject.api
+package com.example.androidinternshipproject.api
 
-import com.example.chatwiseproject.util.Constants.Companion.BASE_URL
+import com.example.androidinternshipproject.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,8 +21,8 @@ class RetrofitInstance {
                 .client (client)
                 .build()
         }
-        val api by lazy {
-            retrofit.create(NewsApi::class.java)
+        val api: ImageApi by lazy {
+            retrofit.create(ImageApi::class.java)
         }
     }
 

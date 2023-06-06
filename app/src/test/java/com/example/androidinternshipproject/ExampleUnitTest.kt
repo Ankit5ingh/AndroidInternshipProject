@@ -1,4 +1,4 @@
-package com.example.chatwiseproject
+package com.example.androidinternshipproject
 
 import org.junit.Test
 

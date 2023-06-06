@@ -1,4 +1,4 @@
-package com.example.chatwiseproject
+package com.example.androidinternshipproject
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

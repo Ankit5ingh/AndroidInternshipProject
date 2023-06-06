@@ -1,4 +1,4 @@
-package com.example.chatwiseproject.util
+package com.example.androidinternshipproject.util
 
 sealed class Resource<T>(
     val data: T? = null,
